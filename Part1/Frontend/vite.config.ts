@@ -12,6 +12,8 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: path.resolve("..", "wwwroot", "dist"),
+    emptyOutDir: true,
     rollupOptions: {
       input: path.join(__dirname, "src", "main.ts"),
     },
