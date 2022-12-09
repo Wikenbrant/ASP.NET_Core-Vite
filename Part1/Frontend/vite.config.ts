@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import path from "path";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig((env) => ({
   css: {
     devSourcemap: true,
   },
@@ -11,6 +11,7 @@ export default defineConfig({
       protocol: "ws",
     },
   },
+  base: env.mode === "production" ? "/dist/" : "/",
   build: {
     outDir: path.resolve("..", "wwwroot", "dist"),
     emptyOutDir: true,
@@ -18,4 +19,4 @@ export default defineConfig({
       input: path.join(__dirname, "src", "main.ts"),
     },
   },
-});
+}));
