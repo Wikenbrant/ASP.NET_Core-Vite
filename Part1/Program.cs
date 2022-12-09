@@ -20,6 +20,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+});
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSpa(spa =>
+    {
+        spa.UseProxyToSpaDevelopmentServer("http://localhost:5173/");
+    });
+}
 
 app.Run();

@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Part1.styles.css" asp-append-version="true" />
+
+    <environment names="Development">
+        <script type="module" src="http://localhost:5173/@@vite/client"></script>
+        <script type="module" src="http://localhost:5173/src/main.ts"></script>
+    </environment>
 </head>
 <body>
     <header>
