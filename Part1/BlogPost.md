@@ -1,4 +1,4 @@
-# How to integrate Vite 3 with ASP.NET Core Part 1
+# How to integrate Vite 4 with ASP.NET Core Part 1
 
 ## Why Vite?
 
@@ -88,7 +88,7 @@ Next steps:
 
 * I then delete the public folder, index.html and .gitignore since this will come from the ASP.NET Core
 
-To add proxying:
+To make Vite handle able to handle file request from the frontend and hot module reload we need to forward all the request to the Vite development server.
 
 Install Microsoft.AspNetCore.SpaServices.Extensions
 
@@ -119,7 +119,7 @@ if (app.Environment.IsDevelopment())
 }
 ```
 
-Why add UseEndpoints? It's because of middleware, forsome reason app.MapRazorPages don't handle the request when we app.UseSpa even thou app.UseSpa is after. But using endpoints fixes the problem and all routes that ASP.NET Core can't handle get proxied to Vite.
+Why add UseEndpoints? It's because of middleware, forsome reason app.MapRazorPages don't handle the request when we use app.UseSpa even thou app.UseSpa is after. But using endpoints fixes the problem and all routes that ASP.NET Core can't handle get proxied to Vite.
 
 Finally the last thing is to add vite script and our entry point to /Pages/Shared/_Layout.cshtml, add this inside the head tag.
 
@@ -187,9 +187,9 @@ export default defineConfig({
 });
 ```
 
-Now when we run npm run build the generated at /wwwroot/dist/
+Now when we run npm run build Vite will use Rollup to bundle and build for production to folder “/wwwroot/dist/”.
 
-Then we need to add the genrated files to our head tag in /Pages/Shared/_Layout.cshtml, add this inside the head tag.
+Then we need to add the generated files to our head tag “/Pages/Shared/_Layout.cshtml” and add this inside of the head tag.
 
 ``` typescript
 <environment exclude="Development">
@@ -198,11 +198,8 @@ Then we need to add the genrated files to our head tag in /Pages/Shared/_Layout.
 </environment>
 ```
 
-During development Vite will handling import of css but now it's a generated file that need to be imported.
-
-Vite will genereate the bundle using rollup and will generate is with [name].hash.js since we dont't know the hash this can be a problem but thankfully using taghelper we can import using a globpattern using asp-src-include and asp-href-include.
-
-To test everything is working I add a launch profile where i set ASPNETCORE_ENVIRONMENT to Production
+During development Vite will handle CSS imports but now it's a generated file that need to be imported.
+The generated bundles will be generated with the naming convention [name].[hash].js. Since we don’t know the hash this can be a problem but we can import files using a glob pattern with a Tag Helper using asp-src-include and asp-href-include.
 
 ``` json
 "profiles": {
