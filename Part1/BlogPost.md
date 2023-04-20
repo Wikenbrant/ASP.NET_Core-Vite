@@ -223,16 +223,16 @@ The generated bundles will be generated with the naming convention [name].[hash]
     },
 ```
 
-Then i run in the frontend folder
+Then I run in the frontend folder
 
 ``` typescript
 npm run build
 ```
 
-But now when i start the server the javascript and css loads but not the svgs.
+But now when I start the server the javascript and css loads but not the svgs.
 ![image 1](./image2.png)
 
-when i look it is requesting /assets/typescript.f6ead1af.svg but it should be requesting /dist/assets/typescript.f6ead1af.svg
+when I look it is requesting /assets/typescript.f6ead1af.svg but it should be requesting /dist/assets/typescript.f6ead1af.svg
 
 To fix this is pretty simple we only need change the vite.config.ts
 
